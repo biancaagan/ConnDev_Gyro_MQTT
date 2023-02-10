@@ -28,7 +28,7 @@ function setup(){
     headingVar = document.getElementById('hVal');
     
     // Set text of localDiv:
-    localDiv.innterHTML = 'trying to connect';
+    localDiv.innerHTML = 'trying to connect';
     // Attempt to connect:
     client = mqtt.connect(broker, options);
     // Set listeners:
@@ -70,21 +70,15 @@ function onSubscribe(response, error){
 
 // Handler for MQTT message received event:
 function onMessage(topic, payload, packet){
-    let result = 'Received a message on topic: ' + topic;
+    let result = 'Incoming messages on the topic: ' + topic;
 
     // Message is a buffer, convert to a string:
     let payloadStr = payload.toString();
-    result += '<br>Message payload: ' + payloadStr;
 
     // Convert to JSON:
     let payloadJson = JSON.parse(payloadStr);
 
-    // List out ALL gyro values:
-    result += '<br>Gyro Values: <ul>';
-    for(let val in payloadJson){
-        result += '<li>' + val + ': ' + payloadJson[val] + '</li>';
-    }
-    result += '</ul>';
+    result += '<br>';
 
     // List out individual gyro values:
     let headingVal = payloadJson.heading;
@@ -103,14 +97,15 @@ function onMessage(topic, payload, packet){
     ctx.stroke();
    
 
-    // Packet is a JSON object, so list its elements:
-    result += '<br>MQTT packet: <ul>';
-    for(let item in packet){
-        result += '<li>' + item + ': ' + packet[item] + '</li>';
-    }
+    // // Packet is a JSON object, so list its elements:
+    // result += '<br>MQTT packet: <ul>';
+    // for(let item in packet){
+    //     result += '<li>' + item + ': ' + packet[item] + '</li>';
+    // }
 
-    // Close the ul tag
-    result += '</ul>';
+    // // Close the ul tag
+    // result += '</ul>';
+
     // Update the remote div text:
     remoteDiv.innerHTML = result;
 }
@@ -123,3 +118,52 @@ function onMessage(topic, payload, packet){
 document.addEventListener('DOMContentLoaded', setup);
 // Run a loop every 2 seconds:
 setInterval(loop, 2000);
+
+
+
+// // Handler for MQTT message received event:
+// function onMessage(topic, payload, packet){
+//     let result = 'Received a message on topic: ' + topic;
+
+//     // Message is a buffer, convert to a string:
+//     let payloadStr = payload.toString();
+//     result += '<br>Message payload: ' + payloadStr;
+
+//     // Convert to JSON:
+//     let payloadJson = JSON.parse(payloadStr);
+
+//     // List out ALL gyro values:
+//     result += '<br>Gyro Values: <ul>';
+//     for(let val in payloadJson){
+//         result += '<li>' + val + ': ' + payloadJson[val] + '</li>';
+//     }
+//     result += '</ul>';
+
+//     // List out individual gyro values:
+//     let headingVal = payloadJson.heading;
+//     let pitchVal = payloadJson.pitch;
+//     let rollVal = payloadJson.roll;
+//     result += '<br>Heading Value: ' + headingVal;
+//     result += '<br>Pitch Value: ' + pitchVal;
+//     result += '<br>Roll Value: ' + rollVal;
+
+//     // Canvas
+//     var c = document.getElementById("myCanvas");
+//     var ctx = c.getContext("2d");
+//     ctx.beginPath();
+//     ctx.moveTo(Math.abs(rollVal), Math.abs(pitchVal));
+//     ctx.lineTo(headingVal, Math.abs(rollVal));
+//     ctx.stroke();
+   
+
+//     // Packet is a JSON object, so list its elements:
+//     result += '<br>MQTT packet: <ul>';
+//     for(let item in packet){
+//         result += '<li>' + item + ': ' + packet[item] + '</li>';
+//     }
+
+//     // Close the ul tag
+//     result += '</ul>';
+//     // Update the remote div text:
+//     remoteDiv.innerHTML = result;
+// }

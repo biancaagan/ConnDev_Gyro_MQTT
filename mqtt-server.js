@@ -1,11 +1,12 @@
 const express = require('express');
 const app = express();
 
-const portNum = 8888;
+const portNum = 3000;
 
 
 // Serve alL the static files in the public folder:
-app.use('/gyro/', express.static("public"));
+//app.use('/gyro/', express.static("public"));    // with server
+app.use(express.static("public"));    // locally
 
 
 function serverStart(){
