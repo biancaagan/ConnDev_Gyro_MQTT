@@ -117,7 +117,7 @@ function onMessage(topic, payload, packet){
 // On page load, call the setup function:
 document.addEventListener('DOMContentLoaded', setup);
 // Run a loop every 2 seconds:
-setInterval(loop, 2000);
+setInterval(loop, 1000);
 
 
 
