@@ -15,7 +15,7 @@ function serverStart(){
 }
 
 // Basic route
-server.get('/gyro', (req, res) => {
+server.get('/gyro/', (req, res) => {
         res.send("Hello there.");
     });
 
